@@ -1,0 +1,14 @@
+minet_1.1.1 
+      - a vignette minet.Rnw has been added
+minet_1.1.2
+      - validation using threshold values
+      - the data.frame table returned by the validate function contains the threshold values.
+      - bcell dataset updated and demo1 removed
+minet_1.1.3
+      - .Call is used instead of .C
+      - C++ entry points are registered
+minet_1.1.4
+	  - bcell dataset removed
+	  - improved vignette
+	  - documentation updated
+
