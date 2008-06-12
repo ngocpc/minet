@@ -3,15 +3,14 @@
 
 \title{Mutual Information Network}
 \usage{
-minet(dataset, method="mrnet", estimator="empirical", 
-      disc.method="equalfreq", nbins=sqrt(nrow(dataset)) )
+minet(dataset, method="mrnet", estimator="mi.empirical", 
+      disc="equalfreq", nbins=sqrt(nrow(dataset)) )
 }
 \arguments{
   \item{dataset}{ data.frame where columns contain variables/features and rows contain outcomes/samples.}
   \item{method}{The name of the inference algorithm : "clr", "aracne" or "mrnet" (default: "mrnet") - see references.}
-  \item{estimator}{ The name of the mutual information estimator : "empirical", "millermadow", "shrink", "dirichlet.sg" or 
-				 "gaussian" (default: "empirical") - see \code{\link{build.mim}}.}
-  \item{disc.method}{ The name of the discretization method to be used : "equalfreq" or "equalwidth" (default: "equalfreq") - see \code{\link{disc}}.}
+  \item{estimator}{ The name of the mutual information estimator : "mi.empirical", "mi.mm", "mi.shrink" or "mi.sg"(default: "mi.empirical") - see \code{\link{build.mim}}.}
+  \item{disc}{ The name of the discretization method to be used : "equalfreq" or "equalwidth" (default: "equalfreq") - see \code{\link{discretize}}.}
   \item{nbins}{ Integer giving the number of bins to be used in the discretization. }
 }
 \value{
@@ -28,7 +27,7 @@ minet(dataset, method="mrnet", estimator="empirical",
 \author{
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 }
-\seealso{ \code{\link{build.mim}},  \code{\link{clr.net}},  \code{\link{mr.net}},  \code{\link{aracne.net}}  }
+\seealso{ \code{\link{build.mim}},  \code{\link{clr}},  \code{\link{mrnet}},  \code{\link{aracne}}  }
 \references{
  Patrick E. Meyer, Kevin Kontos, Frederic Lafitte, and Gianluca Bontempi. 
  Information-theoretic inference of large transcriptional regulatory
@@ -49,7 +48,7 @@ minet(dataset, method="mrnet", estimator="empirical",
 \examples{
 data(syn.data)
 net1 <- minet( syn.data )
-net2 <- minet( syn.data, estimator="shrink" )
-net3 <- minet( syn.data, method="mrnet", estimator="gaussian" )
+net2 <- minet( syn.data, estimator="mi.shrink" )
+net3 <- minet( syn.data, method="clr", estimator="mi.sg" )
 }
 \keyword{misc}

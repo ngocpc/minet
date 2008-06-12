@@ -63,9 +63,9 @@
 data(syn.data)
 data(syn.net)
 # Inference
-mr <- minet( syn.data, method="mrnet", estimator="empirical" )
-ar <- minet( syn.data, method="aracne", estimator="empirical" )
-clr<- minet( syn.data, method="clr", estimator="empirical" )
+mr <- minet( syn.data, method="mrnet", estimator="mi.empirical" )
+ar <- minet( syn.data, method="aracne", estimator="mi.empirical" )
+clr<- minet( syn.data, method="clr", estimator="mi.empirical" )
 # Validation
 mr.tbl <- validate(mr,syn.net)
 ar.tbl <- validate(ar,syn.net)

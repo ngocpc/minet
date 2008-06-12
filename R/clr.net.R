@@ -1,4 +1,4 @@
-clr.net <- function( mim )
+clr<- function( mim )
 {
       var.id<-NULL
       if(is.data.frame(mim)) {

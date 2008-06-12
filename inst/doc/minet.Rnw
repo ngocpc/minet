@@ -76,28 +76,29 @@ is a discrete random variable denoting the expression level of the \emph{ith} ge
 
 \subsection{Obtaining The Mutual Information Matrix}
 <<>>=
+
 library(minet)
+
 data(syn.data)
 #Mutual information estimation
-estimator="gaussian"
+estimator="mi.empirical"
 mim <- build.mim(syn.data,estimator)
 mim[1:5,1:5]
 @
 In the above code, the mutual information matrix is built using the function 
 \Rfunction{build.mim}. This function takes the dataset and one of the mutual 
-information estimator explained in this section as input. All the estimators except the
-gaussian one require discrete data values. The \Rfunction{disc} function 
+information estimator explained in this section as input. All the estimators require discrete data values. The \Rfunction{discretize} function 
 allows the user to choose between two binning
 algorithms.
  
 \subsection{Supervized Discretization}
 
-All the mutual information estimators described in this section, except the gaussian estimator, require discrete data values.
+All the mutual information estimators described in this section require discrete data values.
 If the random variable $X$ is continuous and can take values comprised between
 $a$ and $b$, it is always possible to divide the interval $[a, b]$ into $|\mathcal{X}|$ subintervals
 in view of using the discrete estimators.
 The package provides a function that discretizes data using the equal frequency or equal width
-binning algorithm \cite{disc}.
+binning algorithm \cite{discretize}.
 
 \subsubsection{Equal Width Binning}
 The principle of the equal width discretization is to divide $[a, b]$ into $|\mathcal{X}|$ 
@@ -106,12 +107,14 @@ $$ [a, a + \frac{b-a}{\mathcal{X}} [, [a + \frac{b-a}{\mathcal{X}} , a + 2 \frac
 Note that an $\epsilon$ is added in the last interval in order to include the maximal value in one of the 
 $|\mathcal{X}|$ bins. This discretization scheme can be done in $O(m)$.
 <<>>=
+
 library(minet)
+
 data(syn.data)
 #Data discretization
-disc.method <- "equalwidth"
+disc <- "equalwidth"
 nbins <- sqrt(nrow(syn.data))
-ew.data <- disc(syn.data,disc.method,nbins)
+ew.data <- discretize(syn.data,disc,nbins)
 syn.data[1:5,1:5]
 ew.data[1:5,1:5]
 @
@@ -125,14 +128,14 @@ it is log $\frac{ 1 }{ | \mathcal{X} | }$ . However, there can be more than $\fr
 identical values in a vector of measurements. In the latter case, one of the bins will have more 
 points than the others and the entropy will be different from $\frac{1}{|\mathcal{X}|}$.
 <<>>=
-disc.method <- "equalfreq"
-ef.data <- disc(syn.data,disc.method,nbins)
+disc <- "equalfreq"
+ef.data <- discretize(syn.data,disc,nbins)
 ef.data[1:5,1:5]
 @
 
 \subsection{Mutual Information Estimators}
-The package implements five estimators, called \Robject{"empirical"},\Robject{"millermadow"},
-\Robject{"dirichlet.sg"},\Robject{"shrink"} and \Robject{"gaussian"}. 
+The package implements four estimators, called \Robject{"mi.empirical"},\Robject{"mi.mm"},
+\Robject{"mi.sg"} and \Robject{"mi.shrink"}. 
 
 \subsubsection{Empirical Estimation}
 The estimation of mutual information relies on the estimation of entropy as suggested by the following formula:
@@ -209,32 +212,23 @@ $$\lambda*=\frac{|\mathcal{X}|(m^{2}-\sum_{i\in\mathcal{X}}nb(x_{i})^{2})}{(m-1)
 The entropy can then be computed using
 $$\hat{H}^{shrink}=H(\hat{p}(X))=-\sum_{i\in\mathcal{X}}\hat{p}(x_{i})\log\hat{p}(x_{i})$$
 
-\subsubsection{Gaussian Estimation}
-   Under gaussian assumption, the mutual information can be directly
-computed by the following formula:
-$$I(X;Y) = -\frac{1}{2} \log(1 - \rho_{x,y}^2) $$
-with $\rho$ being the Pearson's correlation between $X_i$ and $X_j$ \cite{papier}.
-   Since only the relative value of entropy is required for network inference,
-using directly the $\rho^2$-matrix can be more effective. Furthermore, this avoids the
-problematic case $\rho = 1$. Note that the complexity of evaluating $\rho^2$ is also in
-$O(m)$ where $m$ is the number of samples.
 
 
 %_________________________________________________________________________________________________________________________________NETWORK INFERENCE
 \section{Network Inference}
-Three network inference methods are available in the package : \Rfunction{aracne.net}, 
-\Rfunction{clr.net} and \Rfunction{mr.net}. These receive as input the mutual information 
+Three network inference methods are available in the package : \Rfunction{aracne}, 
+\Rfunction{clr} and \Rfunction{mrnet}. These receive as input the mutual information 
 matrix and return the weighted adjacency matrix of the network. The network can be 
 directly infered from the dataset by using the \Rfunction{minet} function. This
 function takes as input the dataset, the name of the estimator and the name of 
 the discretization method to be used as well as the number of bins to be used.
 
 \subsection{Obtaining The Network}
-In the following code, the \Rfunction{mr.net} algorithm is applied to the mutual
+In the following code, the \Rfunction{mrnet} algorithm is applied to the mutual
 information matrix estimated in the previous section:
 <<>>=
 #Network Inference
-net <- mr.net(mim)
+net <- mrnet(mim)
 net[1:5,1:5]
 @
 The returned value is the weighted adjacency matrix of the network.
@@ -275,7 +269,7 @@ if gene $X_{1}$ interacts with gene $X_{3}$ through gene $X_{2}$, then $$I(X_{1}
 The ARACNE procedure starts by assigning to each pair of nodes a weight equal to the mutual information. 
 Then the weakest edge of each triplet is interpreted as an indirect interaction and is removed if 
 the difference between the two lowest weights is above a threshold $W_0$.
-The function \Rfunction{aracne.net} has an extra argument \Robject{eps}
+The function \Rfunction{aracne} has an extra argument \Robject{eps}
 which is the numerical value of $W_0$.
 
 
@@ -290,8 +284,8 @@ library(minet)
 data(syn.data)
 net <- minet(syn.data, 
              method="mrnet", 
-             estimator="empirical", 
-             disc.method="equalwidth", 
+             estimator="mi.empirical", 
+             disc="equalwidth", 
              nbins=sqrt(nrow(syn.data)))
 net[1:5,1:5]
 @
@@ -429,7 +423,7 @@ library(minet)
 #library(graph)
 #library(Rgraphviz)
 data(syn.data)
-net <- minet( dataset=syn.data, method="aracne", estimator="gaussian" )
+net <- minet( dataset=syn.data, method="aracne", estimator="mi.mm" )
 # These functions are not from the minet package:
 n <- list(fillcolor="lightgreen",fontsize=20,fontcolor="red",height=.4,width=.4,fixedsize=F)
 #graph <- as(net, "graphNEL")
@@ -448,6 +442,8 @@ The above code generates the graph in figure 2.
 
 
 \bibliographystyle{plain}
+
 \bibliography{minet}
+
 \nocite{*}
 \end{document}

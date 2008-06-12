@@ -15,18 +15,24 @@
  \item SynTReN 1.1.3
  \item source network : yeast\_nn.sif
 }
+
 \references{
+
 Tim Van den Bulcke, Koenraad Van Leemput, Bart Naudts, Piet van Remortel, 
 Hongwu Ma, Alain Verschoren, Bart De Moor, and Kathleen Marchal. 
 Syntren : a generator of synthetic gene expression dataset for design
 and analysis of structure learning algorithms. BMC Bioinformatics, 2006.
+
 }
+
 \examples{
+
 data(syn.data)
 data(syn.net)
-syn.data <- disc(syn.data)
+syn.data <- discretize(syn.data)
 mim <- build.mim(syn.data)
-infered.net <- mr.net(mim)
+infered.net <- mrnet(mim)
 max(fscores(validate( infered.net, syn.net )))
 }
+
 \keyword{datasets}

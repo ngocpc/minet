@@ -11,4 +11,7 @@ minet_1.1.4
 	  - bcell dataset removed
 	  - improved vignette
 	  - documentation updated
+minet_1.1.5
+	  - names of functions + documentation
+	  - removed gaussian estimator
 

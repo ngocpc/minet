@@ -2,12 +2,12 @@
 \alias{build.mim}
 
 \title{Build Mutual Information Matrix}
-\usage{build.mim(data, estimator="empirical")}
+\usage{build.mim(data, estimator="mi.empirical")}
 \arguments{
   \item{data}{data.frame containing gene expression data or any dataset where columns contain variables/features and rows contain outcomes/samples.}
-  \item{estimator}{The name of the mutual information estimator. The package implements five estimators : 
-			   "gaussian", "empirical", "millermadow", "shrink", "dirichlet.sg" (default:"empirical") - see details. 
-               These estimators, except the "gaussian" one, require discrete data values - see \code{\link{disc}}.}
+  \item{estimator}{The name of the mutual information estimator. The package implements four estimators : 
+			    "mi.empirical", "mi.mm", "mi.shrink", "mi.sg" (default:"mi.empirical") - see details. 
+               These estimators require discrete data values - see \code{\link{discretize}}.}
 }
 \value{ \code{build.mim} returns the mutual information matrix.}
 \description{
@@ -19,11 +19,10 @@
       \eqn{X_i}{Xi} and \eqn{X_j}{Xj}. 
 }
 \details{
-      \item "gaussian" : This estimator assumes normally distributed variables.
-      \item "empirical" : This estimator computes the entropy of the empirical probability distribution.
-      \item "millermadow" : This is the Miller-Madow asymptotic bias corrected empirical estimator.
-      \item "shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
-	  \item "dirichlet.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
+      \item "mi.empirical" : This estimator computes the entropy of the empirical probability distribution.
+      \item "mi.mm" : This is the Miller-Madow asymptotic bias corrected empirical estimator.
+      \item "mi.shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
+	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
 }
 \author{
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
@@ -40,13 +39,13 @@
  Jean Hausser. Improving entropy estimation and the inference of genetic regulatory networks.
  Master thesis of the National Institute of Applied Sciences of Lyon, 2006.
 }
-\seealso{\code{\link{clr.net}},   \code{\link{aracne.net}},   \code{\link{mr.net}}}
+\seealso{\code{\link{clr}},   \code{\link{aracne}},   \code{\link{mrnet}}}
 \examples{
   data(syn.data)
   #mutual information estimator
-  estimator="empirical"
+  estimator="mi.empirical"
   #number of bins used to discretize
   nb.bins = sqrt(nrow(syn.data))
-  mim <- build.mim(disc(syn.data,nbins=nb.bins),estimator)
+  mim <- build.mim(discretize(syn.data,nbins=nb.bins),estimator)
 }
 \keyword{misc}

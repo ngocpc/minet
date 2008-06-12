@@ -1,4 +1,4 @@
-aracne.net <- function( mim, eps=0 )
+aracne <- function( mim, eps=0 )
 {
       var.id<-NULL
       if(is.data.frame(mim)) {

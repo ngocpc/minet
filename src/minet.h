@@ -10,7 +10,7 @@ using namespace std;
 #include <R_ext/Rdynload.h>
 #define NA -2000000
 /* These functions are defined in the mim.cpp file */
-double squarecorrelation(const double* d, int N, int n, int i, int j);
+
 double digamma(double z);
 double entropy_empirical(map< vector<double> ,int > frequencies, int nb_samples);
 double entropy_dirichlet(map< vector<double> ,int > frequencies, int nb_samples, double beta);
@@ -22,7 +22,6 @@ extern "C"
 {
 SEXP discEF( SEXP data, SEXP nrows, SEXP ncols, SEXP nbins );
 SEXP discEW( SEXP data, SEXP nrows, SEXP ncols, SEXP nbins );
-SEXP buildMIMgaussian(SEXP data, SEXP nrows, SEXP ncols);
 SEXP buildMIMshrink(SEXP data, SEXP nrows, SEXP ncols);
 SEXP buildMIMempirical(SEXP data, SEXP nrows, SEXP ncols);
 SEXP buildMIMmillermadow(SEXP data, SEXP nrows, SEXP ncols);

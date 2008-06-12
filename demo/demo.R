@@ -2,13 +2,13 @@ data(syn.data)
 data(syn.net)
 
 #MUTUAL INFORMATION ESTIMATION
-estimator = "empirical"
+estimator = "mi.empirical"
 mim <- build.mim(disc(syn.data),estimator)   
 
 #INFERENCE
-clr <- clr.net(mim)
-mr  <- mr.net(mim)
-ar  <- aracne.net(mim)
+clr <- clr(mim)
+mr  <- mrnet(mim)
+ar  <- aracne(mim)
 
 #VALIDATION
 t.clr <- validate(clr,syn.net,steps=50)

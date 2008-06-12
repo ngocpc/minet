@@ -1,8 +1,8 @@
-\name{aracne.net}
-\alias{aracne.net}
+\name{aracne}
+\alias{aracne}
 
 \title{Algorithm for the Reconstruction of Accurate Cellular NEtworks}
-\usage{aracne.net( mim, eps=0 )}
+\usage{aracne( mim, eps=0 )}
 \arguments{
   \item{mim}{A square matrix whose i,j th element is the mutual information  
 			between variables \eqn{Xi}{X_i} and \eqn{Xj}{X_j} - see \code{\link{build.mim}}.}
@@ -10,7 +10,7 @@
 			weakest edge, say (ij), is removed if its weight is below min\{(ik),(jk)\}-eps - see references. }
 }
 \value{
-      \code{aracne.net} returns a matrix which is the weighted adjacency matrix of the network.
+      \code{aracne} returns a matrix which is the weighted adjacency matrix of the network.
        In order to display the network, load the package Rgraphviz and use the following command: \cr
           plot( as( returned.matrix ,"graphNEL") )
 }
@@ -34,10 +34,10 @@
  algorithm for the reconstruction of gene regulatory networks in a mammalian
  cellular context. BMC Bioinformatics, 2006.
 }
-\seealso{\code{\link{build.mim}},   \code{\link{clr.net}},    \code{\link{mr.net}}}
+\seealso{\code{\link{build.mim}},   \code{\link{clr}},    \code{\link{mrnet}}}
 \examples{
 data(syn.data)
-mim <- build.mim(disc(syn.data))
-net <- aracne.net(mim)
+mim <- build.mim(discretize(syn.data))
+net <- aracne(mim)
 }
 \keyword{misc}

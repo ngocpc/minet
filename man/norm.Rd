@@ -1,4 +1,4 @@
-\name{norm}
+\name{norm} 
 \alias{norm}
 
 \title{Data Normalization}

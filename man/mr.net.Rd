@@ -1,20 +1,20 @@
-\name{mr.net}
-\alias{mr.net}
+\name{mrnet}
+\alias{mrnet}
 
 \title{Maximum Relevance Minimum Redundancy}
-\usage{mr.net( mim )}
+\usage{mrnet( mim )}
 \arguments{
   \item{mim}{ A square matrix whose i,j th element is the mutual information 
 		 between variables \eqn{Xi}{X_i} and \eqn{Xj}{X_j} - see \code{\link{build.mim}}.}
 }
-\value{\code{mr.net} returns a matrix which is the weighted adjacency matrix of the network.
+\value{\code{mrnet} returns a matrix which is the weighted adjacency matrix of the network.
       In order to display the network, load the package Rgraphviz and use the following command: \cr
           plot( as( returned.matrix ,"graphNEL") )
 
 }
 
 \description{
-  \code{mr.net} takes the mutual information matrix as input in order to infer the network using 
+  \code{mrnet} takes the mutual information matrix as input in order to infer the network using 
 	the maximum relevance/minimum redundancy feature selection method - see details.
 }
 \details{
@@ -48,10 +48,10 @@
  networks. EURASIP Journal on Bioinformatics and Systems Biology,
  2007.    
 }
-\seealso{\code{\link{build.mim}},   \code{\link{clr.net}},   \code{\link{aracne.net}}}
+\seealso{\code{\link{build.mim}},   \code{\link{clr}},   \code{\link{aracne}}}
 \examples{
 data(syn.data)
-mim <- build.mim(disc(syn.data))
-net <- mr.net(mim)
+mim <- build.mim(discretize(syn.data))
+net <- mrnet(mim)
 }
 \keyword{misc}

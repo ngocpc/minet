@@ -1,22 +1,20 @@
-minet <- function(dataset, method="mrnet", estimator="empirical", disc.method="equalfreq",nbins=sqrt(nrow(dataset)) )
+minet <- function(dataset, method="mrnet", estimator="mi.empirical", disc="equalfreq",nbins=sqrt(nrow(dataset)) )
 {
       net <- NULL
-      if( estimator=="empirical" ||
-          estimator=="shrink" ||
-          estimator=="millermadow" ||
-          estimator=="dirichlet" )
-          dataset <- disc(dataset,disc.method,nbins)
-      else if( estimator!="gaussian")
+      if( estimator=="mi.empirical" ||
+          estimator=="mi.shrink" ||
+          estimator=="mi.mm" ||
+          estimator=="mi.sg" )
+          dataset <- discretize(dataset,disc,nbins)
+      else #if( estimator!="gaussian")
           stop("unknown estimator")
       mim <- build.mim(dataset,estimator)
-      if( method=="clrnet" || method=="clr" )
-            net <- clr.net(mim)
-      else if( method=="mrnet" || method=="mr" )
-            net <- mr.net(mim)
-      else if( method=="aracne" || method=="ar")
-            net <- aracne.net(mim)
-      else if( method=="relnet" || method=="rel" )
-            net <- mim
+      if( method=="clr" )
+            net <- clr(mim)
+      else if( method=="mrnet")
+            net <- mrnet(mim)
+      else if( method=="aracne")
+            net <- aracne(mim)
       else stop( "uknown method" )
       as.matrix(norm(net))
 }

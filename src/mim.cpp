@@ -1,27 +1,5 @@
 #include "minet.h"
-SEXP buildMIMgaussian(SEXP Rdata, SEXP Rnrows, SEXP Rncols)
-{
-      const double *data;
-      const int *nrows,*ncols;
-      double *res, mi;
-         SEXP Rres;
-         PROTECT(Rdata = AS_NUMERIC(Rdata));
-         PROTECT(Rnrows= AS_INTEGER(Rnrows));
-         PROTECT(Rncols= AS_INTEGER(Rncols));
-         data = NUMERIC_POINTER(Rdata);
-         nrows= INTEGER_POINTER(Rnrows);
-         ncols= INTEGER_POINTER(Rncols);      
-         PROTECT(Rres = NEW_NUMERIC((*ncols)*(*ncols)));
-         res = NUMERIC_POINTER(Rres);
-      for( int i=1; i<*ncols; ++i )
-            for( int j=0; j<i; ++j ) {
-                  mi = squarecorrelation(data,*nrows,*ncols,i,j);
-                  res[j*(*ncols)+i] = res[i*(*ncols)+j] = mi;
-            }
-      for( int i=0; i<*ncols; ++i ) res[i*(*ncols)+i]=0;
-         UNPROTECT(4);
-      return Rres;
-}
+
 SEXP buildMIMshrink(SEXP Rdata, SEXP Rnrows, SEXP Rncols)
 {
       const double *data;
@@ -114,27 +92,7 @@ SEXP buildMIMdirichlet(SEXP Rdata, SEXP Rnrows, SEXP Rncols)
          UNPROTECT(4);
       return Rres;
 }
-double squarecorrelation(const double *d, int N, int n, int i, int j) 
-{
-      double xsum=0, ysum=0, xsquare=0, ysquare=0, samples=0, xy=0, x, y;
-      for(int s=0; s<N; s++) 
-        if( d[s+i*N]!=NA && d[s+j*N]!=NA )
-        {
-                x = d[s+i*N];
-                y = d[s+j*N];
-                xsum += x;
-                xsquare += x*x;
-                ysum += y;
-                ysquare += y*y;
-                xy += x*y;
-          ++samples;
-        }
-      double num = xy - (xsum*ysum)/samples;
-      double den1 = xsquare - (xsum*xsum)/samples;
-      double den2 = ysquare - (ysum*ysum)/samples;
-      if(den1 == 0 || den2 == 0 || num == 0) return 0;
-      else return (num*num)/(den1*den2);
-}
+
 double minformation(const double *d, int N, int n, int i, int j, char c) {
          map< vector<double> ,int > freqi;
          map< vector<double> ,int > freqj;

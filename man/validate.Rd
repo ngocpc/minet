@@ -11,8 +11,8 @@
 validate( inet, tnet, steps=50 )
 }
 \arguments{
-  \item{inet}{This is the infered network, a data.frame or matrix obtained by one of the functions \link{minet}, \link{aracne.net},
-			\link{clr.net} or \link{mr.net} .}
+  \item{inet}{This is the infered network, a data.frame or matrix obtained by one of the functions \link{minet}, \link{aracne},
+			\link{clr} or \link{mrnet} .}
   \item{tnet}{The true underlying network. This network must have the same size and variable names as \code{inet}.}
   \item{steps}{The number of threshold values to be used in the validation process - see \code{details}.}
 }
@@ -36,7 +36,7 @@ validate( inet, tnet, steps=50 )
 \examples{
 data(syn.data)
 data(syn.net)
-inf.net <- mr.net(build.mim(disc(syn.data)))
+inf.net <- mrnet(build.mim(discretize(syn.data)))
 table <- validate( inf.net, syn.net, steps=100 )
 }
 \keyword{misc}

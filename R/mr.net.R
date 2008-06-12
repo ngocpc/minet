@@ -1,4 +1,4 @@
-mr.net <- function( mim )
+mrnet <- function( mim )
 {
       var.id<-NULL
       if(is.data.frame(mim)) {

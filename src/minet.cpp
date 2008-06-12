@@ -3,7 +3,6 @@
 R_CallMethodDef callMethods[] = {
       {"discEF",(void*(*)()) &discEF, 4},
       {"discEW",(void*(*)()) &discEW, 4},
-      {"buildMIMgaussian",(void*(*)())&buildMIMgaussian,3},
       {"buildMIMshrink", (void*(*)()) &buildMIMshrink,3},
       {"buildMIMempirical",(void*(*)())&buildMIMempirical,3},
       {"buildMIMmillermadow",(void*(*)())&buildMIMmillermadow,3},
