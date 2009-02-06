@@ -19,10 +19,13 @@
       \eqn{X_i}{Xi} and \eqn{X_j}{Xj}. 
 }
 \details{
+  \itemize{
       \item "mi.empirical" : This estimator computes the entropy of the empirical probability distribution.
       \item "mi.mm" : This is the Miller-Madow asymptotic bias corrected empirical estimator.
       \item "mi.shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
-	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
+	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the
+	  entropy of a Dirichlet probability distribution.
+  }
 }
 \author{
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
