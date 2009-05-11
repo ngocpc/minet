@@ -19,22 +19,20 @@
       \eqn{X_i}{Xi} and \eqn{X_j}{Xj}. 
 }
 \details{
-  \itemize{
+\itemize{
       \item "mi.empirical" : This estimator computes the entropy of the empirical probability distribution.
       \item "mi.mm" : This is the Miller-Madow asymptotic bias corrected empirical estimator.
       \item "mi.shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
-	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the
-	  entropy of a Dirichlet probability distribution.
-  }
+	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
+}
 }
 \author{
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 }
 \references{
- Patrick E. Meyer, Kevin Kontos, Frederic Lafitte, and Gianluca Bontempi.
- Information-theoretic inference of large transcriptional regulatory
- networks. EURASIP Journal on Bioinformatics and Systems Biology,
- 2007.
+  Patrick E. Meyer, Frederic Lafitte, and Gianluca Bontempi. 
+ minet: A R/Bioconductor Package for Inferring Large Transcriptional Networks Using Mutual Information. BMC Bioinformatics, Vol 9,
+ 2008.
  
  J. Beirlant, E. J. Dudewica, L. Gyofi, and E. van der Meulen. Nonparametric 
  entropy estimation : An overview. Journal of Statistics, 1997.

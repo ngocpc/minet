@@ -14,25 +14,8 @@
 %____________________________________________________________________________________________________________________________INTRODUCTION
 \section{Introduction}
 
-Two important issues in computational biology are the extent to      
-which it is possible to model transcriptional interactions by large   
-networks of interacting elements and how these interactions can be  
-effectively learned from measured expression data \cite{vansomeren}. It should     
-be noted that by focusing only on transcript data, the inferred     
-network should not be considered as a proper biochemical regulatory 
-network, but rather as a gene-to-gene network where many     
-physical connections between macromolecules might be hidden by
-short-cuts. In spite of some evident limitations the bioinformatics
- community made important advances in this domain over the
-last few years \cite{gardner,schafer}. In particular, mutual information networks
-have been succesfully applied to transcriptional network inference
-\cite{aracne,clr}. Such methods, which typically rely on the estimation of
-mutual information between variables, have recently held the attention
- of the bioinformatics community for the inference of very large
-networks \cite{relnet,aracne,clr,papier}.
-
 The \Rpackage{minet} package provides a set of functions to infer 
-mutual information networks from a dataset. If fed with microarray 
+mutual information networks from a dataset \cite{papier2}. If fed with microarray 
 data, the package returns a network where nodes denote genes and 
 edges model statistical dependencies between genes. 
 The weight of an edge provides evidence about the existence 
@@ -82,7 +65,7 @@ library(minet)
 data(syn.data)
 #Mutual information estimation
 estimator="mi.empirical"
-mim <- build.mim(syn.data,estimator)
+mim <- build.mim(discretize(syn.data),estimator)
 mim[1:5,1:5]
 @
 In the above code, the mutual information matrix is built using the function 
@@ -151,10 +134,7 @@ where $nb(x_{i})$ is the counting of data points in bin $x_{i}$.
 The Miller-Madow estimation is given by the following formula which
 is the empirical entropy corrected by the asymptotic bias:
 $$\hat{H}^{mm}(p(X)) = \hat{H}^{emp}(p(X)) + \frac{|\mathcal{X}|-1}{2m} $$
-where $|\mathcal{X}|$ is the number of bins with non-zero probability. This correction
-adds no additional computational cost to the empirical estimator. However, it
-reduces the bias without decreasing variance. As a result, it is often preferred
-to use the Miller-Madow estimator instead of the empirical entropy estimator.
+where $|\mathcal{X}|$ is the number of bins with non-zero probability. 
 
 \subsubsection{Schurmann-Grassberger Estimation}
 The Dirichlet distribution is the multivariate generalization of the
@@ -168,12 +148,7 @@ for more details).
 
 In front of no apriori knowledge, the $\beta_{i}$ are all set to
 equality ($\beta_{i}=N,\ i\in\mathcal{X}$) so as no event becomes
-more probable than another. Note that using a Dirichlet prior with
-parameters $N$ is equivalent to adding $N\geq0$ \textquotedblleft{}pseudo-counts\textquotedblright{}
-to each bin $i\in\mathcal{X}$. The prior actually provides the estimator
-the information that $|\mathcal{X}|N$ counts have been observed in
-previous experiments. From that viewpoint, $|\mathcal{X}|N$ becomes
-the a priori sample size. 
+more probable than another. 
 
 The entropy of a Dirichlet distribution can be computed directly with the following equation:
 $$\hat{H}^{dir}(X)=\frac{1}{m+|\mathcal{X}|N}\sum_{i\in\mathcal{X}}(nb(x_{i})+N)(\psi(m+|\mathcal{X}|N+1)-\psi(nb(x_{i})+N+1))$$
@@ -182,9 +157,8 @@ where $\psi(z)=\frac{d\ln\Gamma(z)}{dz}$ is the digamma function.
 Various choice of prior parameters has been proposed in the literature. 
 The Schurmann-Grassberger sets $N=\frac{1}{|\mathcal{X}|}$. 
 
-\subsubsection{Shrinkage Estimation}
-Another interesting approach was proposed in \cite{hausser}. The
-latter is a shrinkage estimation of the entropy. It proposes to assign
+\subsubsection{Shrinkage Entropy Estimation}
+The shrinkage estimation of the entropy \cite{hausser} proposes to assign
 to an event $x_{i}$ a mixture of two probability estimators: 
 
 $$\hat{p}(x_{i})=\lambda\frac{1}{|\mathcal{X}|}+(1-\lambda)\frac{nb(x_{i})}{m}$$
@@ -234,27 +208,18 @@ net[1:5,1:5]
 The returned value is the weighted adjacency matrix of the network.
 
 \subsection{MRNET}
-      Consider a supervised learning task, where the output is denoted by $Y$
-      and $\mathcal{V}$ is the set of input variables. The method ranks the set 
-      $\mathcal{V}$ of inputs according to a score that is the difference between 
-      the mutual information with the output variable $Y$ (maximum relevance) 
-      and the average mutual information with the previously ranked variables
-      (minimum redundancy).
-      The greedy search starts by selecting the variable $X_i$ having the highest
-      mutual information with the target $Y$. The second selected variable $X_j$
-      will be the one that maximizes $I(X_j;Y)-I(X_j;X_i)$. 
-      In the following steps, given a set $S$ of selected variables, the criterion 
-      updates $S$ by choosing the variable $X_k$ that maximizes 
-      $$ I(X_k;Y) - \frac{1}{|\mathcal{S}|}\sum_{X_i \in \mathcal{S}} I(X_k;X_i)$$
-      The MRNET approach consists in repeating this selection procedure for 
-      each target variable by putting $Y=X_i$ and 
-      $\mathcal{V}=\mathcal{X}\backslash\lbrace X_i\rbrace$,
-      $i=1,...,n$ where $\mathcal{X}$ is the set of outcomes of all variables.
-      The weight of each pair $(X_i,X_j)$ will be the maximum score between the one 
-      computed when $X_i$ is the output and the one computed when $X_j$ is 
-      the output.
+      The MRNET approach  \cite{papier} consists in repeating a MRMR feature selection procedure for 
+      each variable of the dataset.
+      The MRMR method \cite{peng} starts by selecting the variable ${X_i}$ having the highest
+      mutual information with the target ${Y}$. 
+      In the following steps, given a set ${\mathcal{S}}$ of selected variables, the criterion 
+      updates ${\mathcal{S}}$ by choosing the variable ${X_k}$ that maximizes 
+      ${ I(X_k;Y) - \frac{1}{|\mathcal{S}|}\sum_{X_i \in \mathcal{S}} I(X_k;X_i)}$
+      The weight of each pair $X_i,X_j$ will be the maximum score between the one 
+      computed when $X_i$ is the target and the one computed when $X_j$ is 
+      the target.
 \subsection{CLR}
-	  The CLR algorithm considers the MIM as the weighted adjacency matrix of the network 
+	  The CLR algorithm \cite{clr} considers the MIM as the weighted adjacency matrix of the network 
 	  but instead of using the information $I(X_i;X_j)$ as the weight of the link between features
       $X_i$ and $X_j$, it takes into account the score 
       $\sqrt{z_i^2+z_j^2}$, where 
@@ -264,7 +229,7 @@ The returned value is the weighted adjacency matrix of the network.
       of the mutual information values $I(X_i;X_k)$, $k=1,...,n$.
 \subsection{ARACNE}
 
-The ARACNE algorithm is based on the Data Processing Inequality . This inequality states that, 
+The ARACNE algorithm \cite{aracne} is based on the Data Processing Inequality . This inequality states that, 
 if gene $X_{1}$ interacts with gene $X_{3}$ through gene $X_{2}$, then $$I(X_{1};X_{3})\leq\min\left(I(X_{1};X_{2}),I(X_{2};X_{3})\right)$$
 The ARACNE procedure starts by assigning to each pair of nodes a weight equal to the mutual information. 
 Then the weakest edge of each triplet is interpreted as an indirect interaction and is removed if 
@@ -300,18 +265,8 @@ The networks infered using this package are weighted but many
 low weighted edges can be removed by using a threshold value. 
 By setting to $0$ all edges whose weight are lower than the threshold
 and to $1$ the other edges weight, the network inference problem 
-can be seen as a binary decision problem, where the inference algorithm 
-plays the role of a classifier: for each pair of nodes, the algorithm 
-either adds an edge or does not. Each pair of nodes is thus assigned a
-positive label (an edge) or a negative one (no edge).
-    A positive label (an edge) predicted by the algorithm is
-considered as a true positive (TP) or as a false positive (FP)
-depending on the presence or not of the corresponding edge
-in the true underlying network, respectively. Analogously, a
-negative label is considered as a true negative (TN) or a false
-negative (FN) depending on whether the corresponding edge
-is present or not in the underlying true network, respectively.
-    The decision made by the algorithm can be summarized
+can be seen as a binary decision problem.
+The decision made by the algorithm can be summarized
 by a confusion matrix (see table \ref{tab:confusion}).
 \begin{table}
 \label{tab:confusion}
@@ -432,7 +387,7 @@ n <- list(fillcolor="lightgreen",fontsize=20,fontcolor="red",height=.4,width=.4,
 
 The above code generates the graph in figure 2.
 
-\newpage
+%\newpage
 \begin{center}\begin{figure}
 \label{fig:graph}
 \caption{Infered network plotted using \Rpackage{Rgraphviz}}
@@ -443,7 +398,105 @@ The above code generates the graph in figure 2.
 
 \bibliographystyle{plain}
 
-\bibliography{minet}
+\begin{thebibliography}{10}
+
+\bibitem{aracne}
+Katia Basso, Adam Margolin, Gustavo Stolovitzky, Ulf Klein, Riccardo
+  Dalla-Favera, and Andrea Califano.
+\newblock Reverse engineering of regulatory networks in human b cells.
+\newblock {\em Nature Genetics}, 37, 2005.
+
+\bibitem{relnet}
+A.~J. Butte and I.S. Kohane.
+\newblock Mutual information relevance networks: Functional genomic clustering
+  using pairwise entropy measurments.
+\newblock {\em Pacific Symposium on Biocomputing}, 5:415--426, 2000.
+
+\bibitem{prroc}
+J.~Davis and M.~Goadrich.
+\newblock The relationship between precision-recall and roc curves.
+\newblock {\em In Proceedings of the 23rd international conference on Machine
+  learning}, 2006.
+
+\bibitem{syntren}
+T.~Van den Bulcke, K.~Van Leemput, B.~Naudts, P.~van Remortel, H.~Ma,
+  A.~Verschoren, B.~De Moor, and K.~Marchal.
+\newblock Syntren: a generator of synthetic gene expression data for design and
+  analysis of structure learning algorithms.
+\newblock {\em BMC Bioinformatics}, 7(1):43, 2006.
+
+\bibitem{discretize}
+J.~Dougherty, R.~Kohavi, and M.~Sahami.
+\newblock Supervised and unsupervised discretization of continuous features.
+\newblock {\em In International Conference on Machine Learning}, pages pages
+  194--202, 1995.
+
+\bibitem{clr}
+J.J. Faith, B.~Hayete, J.T. Thaden, I.~Mogno, J.~Wierzbowski, G.~Cottarel,
+  S.~Kasif, J.J. Collins, and T.S. Gardner.
+\newblock Large-scale mapping and validation of escherichia coli
+  transcriptional regulation from a compendium of expression profiles.
+\newblock {\em PLoS Biology}, 5, 2007.
+
+\bibitem{gardner}
+T.~S. Gardner and J.~Faith.
+\newblock Reverse-engineering transcription control networks.
+\newblock {\em Physics of Life Reviews 2}, 2005.
+
+\bibitem{hausser}
+J.Hausser.
+\newblock Improving entropy estimation and inferring genetic regulatory
+  networks.
+\newblock {\em Master thesis of the National Institute of Applied Sciences
+  Lyon}, 2006.
+
+\bibitem{papier}
+P.~E. Meyer, K.~Kontos, F.~Lafitte, and G.~Bontempi.
+\newblock Information-theoretic inference of large transcriptional regulatory
+  networks.
+\newblock {\em EURASIP Journal on Bioinformatics and Systems Biology}, 2007.
+
+\bibitem{papier2}
+P.~E. Meyer, F.~Lafitte, and G.~Bontempi.
+\newblock minet: A R/Bioconductor Package for Inferring Large Transcriptional Networks Using Mutual Information.
+\newblock {\em BMC Bioinformatics}, 9:461, 2008.
+
+\bibitem{nemenman}
+I.~Nemenman, W.~Bialek, and R.~de~Ruyter~van Steveninck.
+\newblock Entropy and information in neural spike trains: Progress on the
+  sampling problem.
+\newblock {\em Physical Review Letters}, 69, 2004.
+
+\bibitem{paninski}
+L.~Paninski.
+\newblock Estimation of entropy and mutual information.
+\newblock {\em Neural Computation}, 15(6):1191--1253, 2003.
+
+\bibitem{peng}
+H.~Peng, F.~Long, and C.~Ding.
+\newblock Feature selection based on mutual information: criteria of
+  max-dependency, max-relevance, and min-redundancy.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intel
+  ligence}, 27(8), 2005.
+
+\bibitem{schafer}
+J.~Schafer and K.~Strimmer.
+\newblock A shrinkage approach to large-scale covariance matrix estimation and
+  implications for functional genomics.
+\newblock {\em Statistical Applications in Genetics and Molecular Biology},
+  4(32), 2005.
+
+\bibitem{sg}
+T.~Schurmann and P.~Grassberger.
+\newblock Entropy estimation of symbol sequences.
+\newblock {\em Chaos}, 1996.
+
+\bibitem{vansomeren}
+E.~P. van Someren, L.~F.~A. Wessels, E.~Backer, and M.~J.~T. Reinders.
+\newblock Genetic network modeling.
+\newblock {\em Pharmacogenomics}, 3(4):507Ð525, 2002.
+
+\end{thebibliography}
 
 \nocite{*}
 \end{document}

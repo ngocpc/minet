@@ -77,13 +77,13 @@ SEXP discEW( SEXP Rdata, SEXP Rnrows, SEXP Rncols, SEXP Rnbins )
           for( int i=0; i<N; ++i )
             if( data[v*N+i] != NA ) {
                 if( data[v*N+i] > max ) max=data[v*N+i];
-                else if( data[v*N+i] < min ) min=data[v*N+i];
+                if( data[v*N+i] < min ) min=data[v*N+i];
           }
 	      double binsize = (max-min)/(*nbins);
           for( int s=0; s<N; ++s ) {
                 int b=0;
                 if( data[v*N+s]==NA ) b=NA;
-                else while(! ( (min+b*binsize)<=data[v*N+s] && 
+                else while(binsize!=0 && ! ( ( min+b*binsize)<=data[v*N+s] && 
                            data[v*N+s]<(min+(b+1)*binsize) ) ) ++b;
                 if( b==(*nbins) ) 
                       b=(*nbins)-1;              

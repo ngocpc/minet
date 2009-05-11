@@ -29,6 +29,10 @@ minet(dataset, method="mrnet", estimator="mi.empirical",
 }
 \seealso{ \code{\link{build.mim}},  \code{\link{clr}},  \code{\link{mrnet}},  \code{\link{aracne}}  }
 \references{
+ Patrick E. Meyer, Frederic Lafitte, and Gianluca Bontempi. 
+ minet: A R/Bioconductor Package for Inferring Large Transcriptional Networks Using Mutual Information. BMC Bioinformatics, Vol 9,
+ 2008.
+
  Patrick E. Meyer, Kevin Kontos, Frederic Lafitte, and Gianluca Bontempi. 
  Information-theoretic inference of large transcriptional regulatory
  networks. EURASIP Journal on Bioinformatics and Systems Biology,

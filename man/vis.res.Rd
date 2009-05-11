@@ -44,15 +44,14 @@
 }
 
 \details{
-  \itemize{
 	A confusion matrix contains FP,TP,FN,FP values.
+	\itemize{
 	\item "true positive rate" \eqn{tpr = \frac{TP}{TN+TP}}{tpr = TP/(TN+TP)}
 	\item "false positive rate" \eqn{fpr = \frac{FP}{FN+FP}}{fpr = FP/(FN+FP)}	
 	\item "precision" \eqn{p = \frac{TP}{FP+TP}}{p = TP/(FP+TP)}
 	\item "recall" \eqn{r = \frac{TP}{TP+FN}}{r = TP/(TP+FN)}
-	\item "f-beta-score" \eqn{F_\beta = (1+\beta) \frac{p r} {r + \beta
-  p}}{Fbeta = (1+beta) * p*r/(r + beta*p)}
-  }
+	\item "f-beta-score" \eqn{F_\beta = (1+\beta) \frac{p r} {r + \beta p}}{Fbeta = (1+beta) * p*r/(r + beta*p)}
+}
 }
 
 \seealso{\code{\link{validate}},  \code{\link{plot}}}
