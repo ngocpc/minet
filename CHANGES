@@ -14,4 +14,14 @@ minet_1.1.4
 minet_1.1.5
 	  - names of functions + documentation
 	  - removed gaussian estimator
-
+minet_1.1.6
+	  - fixed error in demo + vignette
+	  - added "globalequalwidth" discretization
+	  - little changes vignette and help files
+minet_1.6.0
+	- version 1.1.7 becomes 1.6.0
+	- equal width discretize bug corrected 
+	- build.mim() limited to datasets with less than 32k variables
+	- minet.Rnw, minet.pdf
+	- minet.Rd, build.mim.rd
+	- equal freq w.r.t equal column
