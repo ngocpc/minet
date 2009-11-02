@@ -2,8 +2,8 @@ data(syn.data)
 data(syn.net)
 
 #MUTUAL INFORMATION ESTIMATION
-estimator = "mi.empirical"
-mim <- build.mim(disc(syn.data),estimator)   
+estimator = "spearman"
+mim <- build.mim(syn.data,estimator)   
 
 #INFERENCE
 clr <- clr(mim)
@@ -35,16 +35,16 @@ thrsh <- (max(mr)-min(mr))/4
 mr[which(mr<thrsh)] <- 0
 
 #MAKING graphNELs
-library(Rgraphviz)
-mr.graph  <- as(as.matrix(mr), "graphNEL")
-true.graph<- as(as.matrix(syn.net), "graphNEL")
+#library(Rgraphviz)
+#mr.graph  <- as(mr, "graphNEL")
+#true.graph<- as(syn.net, "graphNEL")
 
 #SETTING ATTRIBUTES
-n <- list(fillcolor="lightgreen",fontsize=20,fontcolor="red",height=.4,width=.4,fixedsize=F)
-e <- list(fontsize=20)
+#n <- list(fillcolor="lightgreen",fontsize=20,fontcolor="red",height=.4,width=.4,fixedsize=F)
+#e <- list(fontsize=20)
 
 #PLOT MRNET AND TRUE.NET
-dev.new()
-plot(mr.graph, attrs = list(node=n,edge=e), main="MRNET") 
-dev.new()
-plot(true.graph, attrs=list(node=n,edge=e), main="SYNTHETIC NETWORK")
+#dev.new()
+#plot(mr.graph, attrs = list(node=n,edge=e), main="MRNET") 
+#dev.new()
+#plot(true.graph, attrs=list(node=n,edge=e), main="SYNTHETIC NETWORK")

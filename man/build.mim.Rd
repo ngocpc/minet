@@ -2,12 +2,16 @@
 \alias{build.mim}
 
 \title{Build Mutual Information Matrix}
-\usage{build.mim(data, estimator="mi.empirical")}
+\usage{build.mim(dataset, estimator = "spearman", disc = "none", nbins = sqrt(NROW(dataset)))}
 \arguments{
-  \item{data}{data.frame containing gene expression data or any dataset where columns contain variables/features and rows contain outcomes/samples.}
-  \item{estimator}{The name of the mutual information estimator. The package implements four estimators : 
-			    "mi.empirical", "mi.mm", "mi.shrink", "mi.sg" (default:"mi.empirical") - see details. 
-               These estimators require discrete data values - see \code{\link{discretize}}.}
+  \item{dataset}{data.frame containing gene expression data or any dataset where columns contain variables/features and rows contain outcomes/samples.}
+  \item{estimator}{The name of the entropy estimator to be used. The package implements four estimators for discrete data: 
+			    "mi.empirical", "mi.mm", "mi.shrink", "mi.sg" and three estimators based on correlation (can be used with continuous data): "pearson","spearman","kendall"(default:"spearman") - see details.
+			    }
+  \item{disc}{ The name of the discretization method to be used with one of the discrete estimators: "none", "equalfreq", "equalwidth" or "globalequalwidth" (default : "none") - see infotheo package.}
+  \item{nbins}{ Integer specifying the number of bins to be used for the discretization if disc is different from "none". By default the number of bins is set to 
+			  \eqn{\sqrt{m}}{sqrt(m)} where m is the number of samples.}
+
 }
 \value{ \code{build.mim} returns the mutual information matrix.}
 \description{
@@ -24,6 +28,9 @@
       \item "mi.mm" : This is the Miller-Madow asymptotic bias corrected empirical estimator.
       \item "mi.shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
 	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
+	  \item "pearson" :  This computes mutual information for normally distributed variable using Pearson's correlation.
+	  \item "spearman" : This computes mutual information for normally distributed variable using Spearman's correlation
+	  \item "kendall" : This computes mutual information for normally distributed variable using Kendall's correlation
 }
 }
 \author{
@@ -40,13 +47,9 @@
  Jean Hausser. Improving entropy estimation and the inference of genetic regulatory networks.
  Master thesis of the National Institute of Applied Sciences of Lyon, 2006.
 }
-\seealso{\code{\link{clr}},   \code{\link{aracne}},   \code{\link{mrnet}}}
+\seealso{\code{\link{clr}},   \code{\link{aracne}},   \code{\link{mrnet}}, \code{\link{mrnetb}}}
 \examples{
   data(syn.data)
-  #mutual information estimator
-  estimator="mi.empirical"
-  #number of bins used to discretize
-  nb.bins = sqrt(nrow(syn.data))
-  mim <- build.mim(discretize(syn.data,nbins=nb.bins),estimator)
+  mim <- build.mim(syn.data,estimator="spearman")
 }
 \keyword{misc}

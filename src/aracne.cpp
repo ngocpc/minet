@@ -4,25 +4,27 @@ SEXP aracne( SEXP Rmim, SEXP Rsize, SEXP Re )
       const int *size;
       const double *mim, *e;
       double *res, eps, eps1, eps2, eps3;
-      int n, *tag;   
+      int *tag;  
+	  unsigned int n; 
       SEXP Rres, Rtag;
       PROTECT(Rmim = AS_NUMERIC(Rmim));
       PROTECT(Rsize= AS_INTEGER(Rsize));
       PROTECT(Re = AS_NUMERIC(Re) );
       mim = NUMERIC_POINTER(Rmim);
       size= INTEGER_POINTER(Rsize);
+	  n = *size;
       e = NUMERIC_POINTER(Re);   
-      PROTECT(Rres=NEW_NUMERIC((*size)*(*size)));
-      PROTECT(Rtag=NEW_INTEGER((*size)*(*size)));
+      PROTECT(Rres=NEW_NUMERIC(n*n));
+      PROTECT(Rtag=NEW_INTEGER(n*n));
       res = NUMERIC_POINTER(Rres);
       tag = INTEGER_POINTER(Rtag);
       eps = *e;
-      n = *size;
-      for( int i=0; i<n*n; ++i ) tag[i]=1;
-      for( int i=0; i<(*size)*(*size); ++i ) res[i]=0;      
-      for(int i = 2; i < n ; ++i) 
-         for(int j = 1; j < i; ++j) 
-            for(int k = 0; k < j ; ++k) {
+      
+      for( unsigned int i=0; i<n*n; ++i ) tag[i]=1;
+      for( unsigned int i=0; i<n*n; ++i ) res[i]=0;      
+      for(unsigned int i = 2; i < n ; ++i) 
+         for(unsigned int j = 1; j < i; ++j) 
+            for(unsigned int k = 0; k < j ; ++k) {
                   eps1 = mim[j*n+k] - mim[i*n+j];
                   eps2 = mim[i*n+k] - mim[i*n+j];
                   eps3 = mim[i*n+k] - mim[j*n+k];
@@ -35,7 +37,7 @@ SEXP aracne( SEXP Rmim, SEXP Rsize, SEXP Re )
                              tag[i*n+k]=tag[k*n+i]=0;
                   }
             }
-      for( int i=0; i<n*n; ++i )
+      for(unsigned int i=0; i<n*n; ++i )
             if(tag[i]) res[i]=mim[i];
       UNPROTECT(5);
       return Rres;

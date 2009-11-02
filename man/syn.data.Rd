@@ -28,8 +28,7 @@ and analysis of structure learning algorithms. BMC Bioinformatics, 2006.
 
 data(syn.data)
 data(syn.net)
-syn.data <- discretize(syn.data)
-mim <- build.mim(syn.data)
+mim <- build.mim(syn.data,estimator="spearman")
 infered.net <- mrnet(mim)
 max(fscores(validate( infered.net, syn.net )))
 }

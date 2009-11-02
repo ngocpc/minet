@@ -8,13 +8,14 @@
       and appends the resulting confusion matrices to the returned object.     
 }
 \usage{
-validate( inet, tnet, steps=50 )
+validate(inet,tnet,steps=50,thresholds=pretty(inet,steps))
 }
 \arguments{
   \item{inet}{This is the infered network, a data.frame or matrix obtained by one of the functions \link{minet}, \link{aracne},
 			\link{clr} or \link{mrnet} .}
   \item{tnet}{The true underlying network. This network must have the same size and variable names as \code{inet}.}
   \item{steps}{The number of threshold values to be used in the validation process - see \code{details}.}
+  \item{thresholds}{The vector of thresholds to be used. By default it is a sequence of about steps+1 equally spaced intervals.}
 }
 \value{
   \code{validate} returns a data.frame whith four columns named \code{thrsh, tp, fp, fn}. These values are 
@@ -29,15 +30,16 @@ validate( inet, tnet, steps=50 )
 	  confusion (adjacency) matrix.
 	  All the confusion matrices, obtained with different threshold values, are appended to the 
 	  returned object.
-	  In the end the \code{validate} function returns a data.frame containing \code{steps} confusion matrices.
+	  In the end the \code{validate} function returns a data.frame containing \code{steps+1} confusion matrices.
 }
 \seealso{ \code{\link{minet}},   \code{\link{vis.res}} }
 
 \examples{
 data(syn.data)
 data(syn.net)
-inf.net <- mrnet(build.mim(discretize(syn.data)))
+inf.net <- mrnet(build.mim(syn.data, estimator="spearman"))
 table <- validate( inf.net, syn.net, steps=100 )
+table <- validate( inf.net, syn.net, steps=1, thresholds=0.5 )
 }
 \keyword{misc}
 

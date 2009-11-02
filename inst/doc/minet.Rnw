@@ -33,7 +33,7 @@ to compare the inferred network with a reference one.
 
 This vignette guides the package user in :
 \begin{enumerate}
-\item Estimating the mutual information matrix and discretizing data if needed.
+\item Estimating the mutual information matrix.
 \item Inferring a network modeling the interactions between the dataset's variables.
 \item Comparing the infered network to a network of known interactions in order to compute $F_\beta-scores$.
 \item Plotting precision-recall and receiver operating characteristic curves.
@@ -64,8 +64,8 @@ library(minet)
 
 data(syn.data)
 #Mutual information estimation
-estimator="mi.empirical"
-mim <- build.mim(discretize(syn.data),estimator)
+estimator="spearman"
+mim <- build.mim(syn.data,estimator)
 mim[1:5,1:5]
 @
 In the above code, the mutual information matrix is built using the function 
@@ -74,120 +74,6 @@ information estimator explained in this section as input. All the estimators req
 allows the user to choose between two binning
 algorithms.
  
-\subsection{Supervized Discretization}
-
-All the mutual information estimators described in this section require discrete data values.
-If the random variable $X$ is continuous and can take values comprised between
-$a$ and $b$, it is always possible to divide the interval $[a, b]$ into $|\mathcal{X}|$ subintervals
-in view of using the discrete estimators.
-The package provides a function that discretizes data using the equal frequency or equal width
-binning algorithm \cite{discretize}.
-
-\subsubsection{Equal Width Binning}
-The principle of the equal width discretization is to divide $[a, b]$ into $|\mathcal{X}|$ 
-subintervals all having the same size: 
-$$ [a, a + \frac{b-a}{\mathcal{X}} [, [a + \frac{b-a}{\mathcal{X}} , a + 2 \frac{b-a}{\mathcal{X}} [, ... , [a + (|\mathcal{X} |-1)\frac{b-a}{\mathcal{X}},b + \epsilon[ $$ 
-Note that an $\epsilon$ is added in the last interval in order to include the maximal value in one of the 
-$|\mathcal{X}|$ bins. This discretization scheme can be done in $O(m)$.
-<<>>=
-
-library(minet)
-
-data(syn.data)
-#Data discretization
-disc <- "equalwidth"
-nbins <- sqrt(nrow(syn.data))
-ew.data <- discretize(syn.data,disc,nbins)
-syn.data[1:5,1:5]
-ew.data[1:5,1:5]
-@
-\subsubsection{Equal Frequencies Binning}
-The equal frequency discretization scheme consist in dividing the interval $[a, b]$
-into $|\mathcal{X}|$ intervals, each having the same number of data points (i.e., 
-$\frac{m}{|\mathcal{X}|}$ points).
-As a result, the size of each interval can be different. Note that if the $| \mathcal{X} |$
-intervals have equal frequencies, the computation of entropy is straightforward since
-it is log $\frac{ 1 }{ | \mathcal{X} | }$ . However, there can be more than $\frac{m}{|\mathcal{X}|}$ 
-identical values in a vector of measurements. In the latter case, one of the bins will have more 
-points than the others and the entropy will be different from $\frac{1}{|\mathcal{X}|}$.
-<<>>=
-disc <- "equalfreq"
-ef.data <- discretize(syn.data,disc,nbins)
-ef.data[1:5,1:5]
-@
-
-\subsection{Mutual Information Estimators}
-The package implements four estimators, called \Robject{"mi.empirical"},\Robject{"mi.mm"},
-\Robject{"mi.sg"} and \Robject{"mi.shrink"}. 
-
-\subsubsection{Empirical Estimation}
-The estimation of mutual information relies on the estimation of entropy as suggested by the following formula:
-$$I(X;Y) = H(X) + H(Y) - H(X,Y)$$ where
-$$H(X) = - \sum_{x \in \mathcal{X}} p(x) \log(p(x)) $$
-is the entropy of the discrete variable $X$.
-The empirical estimator (also called "plug-in", "maximum likelihood" or "naive",
-see [29]) is simply the entropy of the empirical distribution:
-$$\hat{H}^{emp}(p(X))=-\sum_{i\in\mathcal{X}}\frac{nb(x_{i})}{m}\log\frac{nb(x_{i})}{m}$$
-where $nb(x_{i})$ is the counting of data points in bin $x_{i}$.
-
-\subsubsection{Miller-Madow Estimation}
-The Miller-Madow estimation is given by the following formula which
-is the empirical entropy corrected by the asymptotic bias:
-$$\hat{H}^{mm}(p(X)) = \hat{H}^{emp}(p(X)) + \frac{|\mathcal{X}|-1}{2m} $$
-where $|\mathcal{X}|$ is the number of bins with non-zero probability. 
-
-\subsubsection{Schurmann-Grassberger Estimation}
-The Dirichlet distribution is the multivariate generalization of the
-beta distribution. It is also the conjugate prior of the multinomial
-distribution in Bayesian statistics. More precisely, the density of
-a Dirichlet distribution takes the following form
-$$f(X;\beta)=\frac{\prod_{i\in\mathcal{X}}\Gamma(\beta_{i})}{\Gamma(\sum_{i\in\mathcal{X}}\beta_{i})}\prod_{i\in\mathcal{X}}x_{i}^{\beta_{i}-1}$$
-where $\beta_{i}$ is the prior probability of an event $x_{i}$ and
-$\Gamma(\cdot)$ is the gamma function, (see \cite{hausser,nemenman}
-for more details).
-
-In front of no apriori knowledge, the $\beta_{i}$ are all set to
-equality ($\beta_{i}=N,\ i\in\mathcal{X}$) so as no event becomes
-more probable than another. 
-
-The entropy of a Dirichlet distribution can be computed directly with the following equation:
-$$\hat{H}^{dir}(X)=\frac{1}{m+|\mathcal{X}|N}\sum_{i\in\mathcal{X}}(nb(x_{i})+N)(\psi(m+|\mathcal{X}|N+1)-\psi(nb(x_{i})+N+1))$$
-where $\psi(z)=\frac{d\ln\Gamma(z)}{dz}$ is the digamma function.
-
-Various choice of prior parameters has been proposed in the literature. 
-The Schurmann-Grassberger sets $N=\frac{1}{|\mathcal{X}|}$. 
-
-\subsubsection{Shrinkage Entropy Estimation}
-The shrinkage estimation of the entropy \cite{hausser} proposes to assign
-to an event $x_{i}$ a mixture of two probability estimators: 
-
-$$\hat{p}(x_{i})=\lambda\frac{1}{|\mathcal{X}|}+(1-\lambda)\frac{nb(x_{i})}{m}$$
-
-The first one, $\frac{1}{|\mathcal{X}|}$, that has a zero variance
-but a large bias and the second one, the empirical one $\frac{nb(x_{i})}{m}$,
-that has a larger variance but is unbiased. The advantage of shrinking
-the second one towards the first one is that, the resulting estimator
-outperform both individual estimates \cite{schafer}.
-As the value of $\lambda$ tends to one, the estimated entropy is
-moved toward the maximal entropy (uniform probability) whereas when
-$\lambda$ is zero the estimated entropy tends to the value of the
-empirical one. 
-
-The parameter $\lambda$ has to be chosen in order to minimize a risk
-function $R(\lambda)$.
-
-$$R(\lambda)=E[\sum_{i\in\mathcal{X}}(\hat{p}(x_{i})-p(x_{i}))^{2}]$$
-
-In \cite{schafer} the analytical value of $\lambda$
-that minimize the risk is expressed in generic terms. Applied to the
-problem of estimating bin probabilities \cite{hausser}, it gives
-$$\lambda*=\frac{|\mathcal{X}|(m^{2}-\sum_{i\in\mathcal{X}}nb(x_{i})^{2})}{(m-1)(|\mathcal{X}|\sum_{i\in\mathcal{X}}nb(x_{i})^{2}-m^{2})}$$
-
-The entropy can then be computed using
-$$\hat{H}^{shrink}=H(\hat{p}(X))=-\sum_{i\in\mathcal{X}}\hat{p}(x_{i})\log\hat{p}(x_{i})$$
-
-
-
 %_________________________________________________________________________________________________________________________________NETWORK INFERENCE
 \section{Network Inference}
 Three network inference methods are available in the package : \Rfunction{aracne}, 
@@ -248,10 +134,7 @@ All the instructions used until now can then be summarized with the following ca
 library(minet)
 data(syn.data)
 net <- minet(syn.data, 
-             method="mrnet", 
-             estimator="mi.empirical", 
-             disc="equalwidth", 
-             nbins=sqrt(nrow(syn.data)))
+             method="mrnet")
 net[1:5,1:5]
 @
 Note that in this case the returned object is the \emph{normalized} weighted 
@@ -352,7 +235,7 @@ we can use the function
 \end{itemize}
 Both functions \Rfunction{show.pr} and \Rfunction{show.roc} return the device 
 associated to the plotting window used. This allows the user to plot several 
-curves on the same figure. The following code generates the curves in figure 1.
+curves on the same figure. The following code generates the curves.
 <<>>=
 #Precision recall curves
 dev <- show.pr( table1, pch=2, type="b", col="green" )
@@ -361,40 +244,6 @@ show.pr( table2, device=dev, pch=1, type="b", col="blue")
 dev <- show.roc( table1, type="b", col="green" )
 show.roc( table2,device=dev,type="b",col="blue" )
 @
-
-\begin{center}\begin{figure}
-\label{fig:courbes}
-\includegraphics[width=12cm]{courbes}
-\caption{Precision-Recall curve (left) and Receiver Operating Characteristic curve (right), 
-for both inference algorithms \Robject{mrnet} (green) and \Robject{clr} (blue).}
-\end{figure}\end{center}
-
-\subsection{Plotting the infered network with \Rpackage{Rgraphviz}}
-
-In order to plot the infered netwok, we suggest using the \Rpackage{Rgraphviz} 
-package with the following code:
-<<>>=
-library(minet)
-#library(graph)
-#library(Rgraphviz)
-data(syn.data)
-net <- minet( dataset=syn.data, method="aracne", estimator="mi.mm" )
-# These functions are not from the minet package:
-n <- list(fillcolor="lightgreen",fontsize=20,fontcolor="red",height=.4,width=.4,fixedsize=F)
-#graph <- as(net, "graphNEL")
-#plot(graph, attrs = list(node=n), main="Infered Network")
-@
-
-The above code generates the graph in figure 2.
-
-%\newpage
-\begin{center}\begin{figure}
-\label{fig:graph}
-\caption{Infered network plotted using \Rpackage{Rgraphviz}}
-\includegraphics[width=10cm,angle=270]{graph}
-\end{figure}\end{center}
-\newpage
-
 
 \bibliographystyle{plain}
 

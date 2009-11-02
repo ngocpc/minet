@@ -25,3 +25,17 @@ minet_1.6.0
 	- minet.Rnw, minet.pdf
 	- minet.Rd, build.mim.rd
 	- equal freq w.r.t equal column
+minet_2.0
+	- mutual information and discretization is now in the infotheo package
+	- mutual information based on correlation
+	- networks and mim are matrices instead of dataframe
+	- threshold/validate function
+	- networks size is unsigned
+	- no graphics anymore in the doc
+minet_2.2.0
+	- correction of the correlation based estimators
+	- improved help files
+	- mrnetb
+	
+
+          

@@ -38,7 +38,7 @@
 
 data(syn.data)
 data(syn.net)
-mim <- build.mim(discretize(syn.data),estimator="mi.empirical")
+mim <- build.mim(syn.data,estimator="spearman")
 infered.net <- mrnet(mim)
 max(fscores(validate( infered.net, syn.net )))
 
