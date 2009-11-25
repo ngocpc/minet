@@ -33,9 +33,12 @@ minet_2.0
 	- networks size is unsigned
 	- no graphics anymore in the doc
 minet_2.2.0
-	- correction of the correlation based estimators
+	- correction (log) of the correlation based estimators
 	- improved help files
-	- mrnetb
+	- mrnetb (not yet)
+minet_2.2.1
+	- eps parameter correction in Aracne thanks to Lin Song (Horvath's lab, UCLA)
+	- NA values correction for correlation based MI
 	
 
           

@@ -28,15 +28,35 @@ SEXP aracne( SEXP Rmim, SEXP Rsize, SEXP Re )
                   eps1 = mim[j*n+k] - mim[i*n+j];
                   eps2 = mim[i*n+k] - mim[i*n+j];
                   eps3 = mim[i*n+k] - mim[j*n+k];
-                  if( abs(eps1)>eps || abs(eps2)>eps || abs(eps3)>eps ) { 
-                        if((eps1 > eps) and (eps2 > eps)) // if (ij) minimum tag (ij) for elimination
-                             tag[i*n+j]=tag[j*n+i]=0; 
-                        else if(eps3 > eps) // if a_ij is not minimal and a_ik neither then tag a_jk
-                             tag[j*n+k]=tag[k*n+j]=0;
-                        else
-                             tag[i*n+k]=tag[k*n+i]=0;
-                  }
-            }
+				if(eps3 > 0) //(ik)>(jk)
+					if(eps1 >0) { // (ik)>(jk)>(ij)
+						if(eps1 > eps)
+							tag[i*n+j]=tag[j*n+i]=0; 
+						}
+					else  //jk is minimum 
+						if(eps2>0) {//(ik)>(ij)>(jk)
+							if((-eps1) > eps)
+								tag[j*n+k]=tag[k*n+j]=0; 
+						}
+						else { //(ij)>(ik)>(jk)
+							if(eps3 > eps)
+								tag[j*n+k]=tag[k*n+j]=0; 
+						}
+				else //(jk)>(ik)
+					if(eps2 > 0) {//(jk)>(ik)>(ij)
+						if(eps2 > eps)
+							tag[i*n+j]=tag[j*n+i]=0; 
+					}
+					else //ik is minimum
+						if(eps1>0){ //(jk)>(ij)>(ik)
+							if((-eps2) > eps)
+								tag[i*n+k]=tag[k*n+i]=0;
+						}
+						else //(ij)>(jk)>(ik)
+							if((-eps3) > eps)
+								tag[i*n+k]=tag[k*n+i]=0;
+					
+			}
       for(unsigned int i=0; i<n*n; ++i )
             if(tag[i]) res[i]=mim[i];
       UNPROTECT(5);

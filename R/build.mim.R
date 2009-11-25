@@ -3,7 +3,7 @@ build.mim <- function( dataset, estimator = "spearman", disc = "none", nbins = s
 	if( disc == "equalfreq" || disc == "equalwidth" || disc == "globalequalwidth")
 				dataset<-discretize(dataset, disc, nbins)
 	if( estimator=="spearman" || estimator=="pearson" || estimator=="kendall") {
-		  mim<-cor(dataset,method=estimator)^2
+		  mim<-cor(dataset,method=estimator,use="complete.obs")^2
 		  diag(mim)<-0
 		  maxi<-0.999999
 		  mim[which(mim>maxi)]<-maxi
