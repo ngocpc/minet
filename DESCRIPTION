@@ -1,6 +1,6 @@
 Package: minet
 Title: Mutual Information Network Inference
-Version: 2.2.1
+Version: 2.4.0
 Date: 2009-08-19
 Author: Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 Description: This package implements various algorithms for inferring mutual information networks from data.
