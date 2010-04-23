@@ -1,0 +1,8 @@
+useDynLib(minet)
+
+importFrom(graphics, lines, plot, points)
+importFrom(grDevices, dev.cur, dev.new, dev.set)
+importFrom(stats, cor)
+
+export(aracne, build.mim, clr, fscores, minet, mrnet, mrnetb, pr,
+       rates, show.pr, show.roc, validate)

@@ -7,5 +7,6 @@ Description: This package implements various algorithms for inferring mutual inf
 Maintainer: Patrick E. Meyer <pmeyer@ulb.ac.be>
 License: GPL (>= 3)
 Depends: infotheo
+Imports: graphics, grDevices, stats
 URL: http://www.ulb.ac.be/di/mlg
 biocViews: Microarray, GraphsAndNetworks
