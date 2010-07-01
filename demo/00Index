@@ -1,2 +1,0 @@
-demo       Compares three networks infered from a synthetic dataset by plotting their pr-curves and roc-curves. This demo also displays 
-           the infered networks using the Rgraphviz package.
