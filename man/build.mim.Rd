@@ -29,8 +29,8 @@
       \item "mi.shrink" : This is a shrinkage estimate of the entropy of a Dirichlet probability distribution.
 	  \item "mi.sg" : This is the Schurmann-Grassberger estimate of the entropy of a Dirichlet probability distribution.
 	  \item "pearson" :  This computes mutual information for normally distributed variable using Pearson's correlation.
-	  \item "spearman" : This computes mutual information for normally distributed variable using Spearman's correlation
-	  \item "kendall" : This computes mutual information for normally distributed variable using Kendall's correlation
+	  \item "spearman" : This computes the squared rank correlation matrix using Spearman's correlation
+	  \item "kendall" : This computes the squared rank correlation matrix using Kendall's correlation
 }
 }
 \author{

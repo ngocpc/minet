@@ -8,7 +8,7 @@ minet(dataset, method="mrnet", estimator="spearman", disc="none", nbins=sqrt(NRO
 \arguments{
   \item{dataset}{ data.frame where columns contain variables/features and rows contain outcomes/samples.}
   \item{method}{The name of the inference algorithm : "clr", "aracne", "mrnet" or "mrnetb" (default: "mrnet") - see references.}
-  \item{estimator}{ The name of the entropy estimator to be used for mutual information computation: "mi.empirical", "mi.mm", "mi.shrink", "mi.sg", "spearman","kendall","pearson" (default: "spearman"). - see \code{\link{build.mim}}.}
+  \item{estimator}{ The name of an entropy estimator to be used for mutual information computation ("mi.empirical", "mi.mm", "mi.shrink", "mi.sg", "pearson") or of a squared rank correlation ("spearman","kendall"), (default: "spearman") . - see \code{\link{build.mim}}.}
   \item{disc}{ The name of the discretization method to be used, if required by the estimator :"none" ,"equalfreq", "equalwidth" or "globalequalwidth" (default : "none") - see infotheo package.}
   \item{nbins}{ Integer specifying the number of bins to be used for the discretization if disc is set properly. By default the number of bins is set to 
 			  \eqn{\sqrt{N}}{sqrt(N)} where N is the number of samples.}

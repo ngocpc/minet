@@ -12,13 +12,15 @@ build.mim <- function( dataset, estimator = "spearman", disc = "none", nbins = s
 {
 	if( disc == "equalfreq" || disc == "equalwidth" || disc == "globalequalwidth")
 				dataset<-discretize(dataset, disc, nbins)
-	if( estimator=="spearman" || estimator=="pearson" || estimator=="kendall") {
+	if( estimator=="pearson") {
 		  mim<-cor(dataset,method=estimator,use="complete.obs")^2
 		  diag(mim)<-0
 		  maxi<-0.999999
 		  mim[which(mim>maxi)]<-maxi
 		  mim <--0.5*log(1-mim)
 	}
+	else if (estimator=="spearman" || estimator=="kendall") 
+	     mim<-cor(dataset,method=estimator,use="complete.obs")^2
 	
 	else if(estimator == "mi.mm")
 		estimator = "mm"

@@ -26,7 +26,7 @@
 }
 \references{
  Patrick E. Meyer, Daniel Marbach, Sushmita Roy and Manolis Kellis. 
- Information-Theoretic Inference of Gene Networks Using Backward Elimination 
+ Information-Theoretic Inference of Gene Networks Using Backward Elimination. 
  The 2010 International Conference on Bioinformatics and Computational Biology. 
  
   
