@@ -25,8 +25,7 @@
 }
 
 \arguments{
-  \item{table}{This is the (\code{steps} x 5) data.frame returned by the \code{validate} function where 
-	  \code{steps} is the number of thresholds used in the validation process and where columns contain 
+  \item{table}{This is the  data.frame returned by the \code{validate} function where columns contain 
 	  TP,FP,TN,FN values (confusion matrix) as well as the threshold value used  - see \code{\link{validate}}.}
   \item{beta}{Numeric used as the weight of the recall in the f-score formula - see details. The default value of this argument is
 	1, meaning precision as important as recall.}
@@ -39,13 +38,13 @@
   
   The function \code{auc.roc} (\code{auc.pr}) computes the area under the ROC-curve (PR-curve) using the trapezoidal approximation.
   
-  The function \code{pr} returns a (\code{steps} x 2) data.frame where steps is the number of thresholds used 
+  The function \code{pr} returns a data.frame where steps is the number of thresholds used 
   in the validation process. The first column contains precisions and the second recalls - see details.
   
-  The function \code{rates} also returns a (\code{steps} x 2) data.frame where the first column contains true 
+  The function \code{rates} also returns a data.frame where the first column contains true 
   positive rates and the second column false positive rates - see details.  
 
-  The function \code{fscores} returns \code{steps} fscores according to the \code{steps} confusion matrices 
+  The function \code{fscores} returns fscores according to the confusion matrices 
   contained in the 'table' argument - see details.
 }
 
@@ -82,6 +81,7 @@ max(fscores(mr.tbl))
 dev <- show.pr(mr.tbl, col="green", type="b")
 dev <- show.pr(ar.tbl, device=dev, col="blue", type="b")
 show.pr(clr.tbl, device=dev, col="red",type="b")
+auc.pr(clr.tbl)
 }
 \keyword{misc}
 

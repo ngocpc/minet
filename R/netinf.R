@@ -44,6 +44,7 @@ mrnetb <- function( mim)
 	  res <- as.matrix(res)
 	  rownames(res) <- var.id
 	  colnames(res) <- var.id
+	  res<-pmax(res,t(res))
 	  res
 }
 

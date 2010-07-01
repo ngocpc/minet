@@ -2,7 +2,7 @@
 #minet: Mutual Information NETworks, <http://minet.meyerp.com>
 #a package that implements various algorithms for inferring mutual information networks from data.
 
-#Copyright (Creative Commons by-nc-sa) july 2010  Patrick Emmanuel Meyer <software@meyerp.com>
+#Copyright (Creative Commons by-nc-sa) July 2010  Patrick Emmanuel Meyer <software@meyerp.com>
 #<License full notice: at the root of the package 
 #and at http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode> 
 
