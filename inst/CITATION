@@ -1,0 +1,15 @@
+citHeader("To cite minet in publications use:")
+
+citEntry(entry = "Article",
+  title        = "MINET: An open source R/Bioconductor Package for Mutual Information based Network Inference",
+  author       = "Patrick E. Meyer and Frederic Lafitte and Gianluca Bontempi",
+  journal      = "BMC Bioinformatics",
+  year         = "2008",
+  volume       = "9",
+  url 		   = "http://www.biomedcentral.com/1471-2105/9/461",
+  textVersion  =
+  paste("Patrick E. Meyer, Frederic Lafitte and Gianluca Bontempi (2008).",
+        "MINET: An open source R/Bioconductor Package for Mutual Information based Network Inference.",
+        "BMC Bioinformatics.",
+        "URL http://www.biomedcentral.com/1471-2105/9/461")
+)
