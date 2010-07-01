@@ -23,6 +23,7 @@ minet(dataset, method="mrnet", estimator="spearman", disc="none", nbins=sqrt(NRO
   First, the mutual information between all pairs of variables in \code{dataset} is computed
   according to the \code{estimator} argument. Then the algorithm given by \code{method} 
   considers the estimated mutual informations in order to build the network.
+  The package MINET is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 }
 \author{
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
