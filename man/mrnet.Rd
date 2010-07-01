@@ -34,14 +34,18 @@
   Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 }
 \references{
- Patrick E. Meyer, Kevin Kontos, Frederic Lafitte, and Gianluca Bontempi. 
+ Patrick E. Meyer, Kevin Kontos, Frederic Lafitte and Gianluca Bontempi. 
  Information-theoretic inference of large transcriptional regulatory
  networks. EURASIP Journal on Bioinformatics and Systems Biology,
  2007. 
  
+ Patrick E. Meyer, Frederic Lafitte and Gianluca Bontempi. 
+ minet: A R/Bioconductor Package for Inferring Large Transcriptional Networks Using Mutual Information. 
+ BMC Bioinformatics, Vol 9, 2008.
+ 
  H. Peng, F.long and C.Ding.
  Feature selection based on mutual information: Criteria of max-dependency, max relevance and min redundancy.
- IEEE transaction on Pattern Analysis and Machine Intelligence, 2005
+ IEEE transaction on Pattern Analysis and Machine Intelligence, 2005.
 }
 \seealso{\code{\link{build.mim}},   \code{\link{clr}},   \code{\link{aracne}}, \code{\link{mrnetb}}}
 \examples{

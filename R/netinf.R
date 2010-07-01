@@ -1,3 +1,12 @@
+#This file belong to
+#minet: Mutual Information NETworks, <http://minet.meyerp.com>
+#a package that implements various algorithms for inferring mutual information networks from data.
+
+#Copyright (Creative Commons by-nc-sa) July 2010  Patrick Emmanuel Meyer <software@meyerp.com>
+#<License full notice: at the root of the package 
+#and at http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode> 
+
+
 mrnet <- function( mim )
 {
       var.id<-NULL
@@ -20,7 +29,22 @@ mrnet <- function( mim )
 
 mrnetb <- function( mim)
 {
-"method not yet available"
+      var.id<-NULL
+      if(is.data.frame(mim)) {
+            var.id <- names(mim)
+            mim <- as.matrix(mim)
+      }
+      else if( is.matrix(mim) ) 
+            var.id <- names(as.data.frame(mim))
+      else  stop("Supply a matrix-like argument")      
+      if(ncol(mim) != nrow(mim))
+            stop("Argument matrix must be square")
+	  res <- .Call("mrnetb", mim, nrow(mim), DUP=FALSE, PACKAGE="minet")
+	  dim(res) <- dim(mim)
+	  res <- as.matrix(res)
+	  rownames(res) <- var.id
+	  colnames(res) <- var.id
+	  res
 }
 
 clr<- function( mim )

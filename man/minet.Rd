@@ -37,6 +37,6 @@ minet(dataset, method="mrnet", estimator="spearman", disc="none", nbins=sqrt(NRO
 data(syn.data)
 net1 <- minet( syn.data )
 net2 <- minet( syn.data, estimator="pearson" )
-net3 <- minet( syn.data, method="clr", estimator="spearman" )
+net3 <- minet( syn.data, method="clr")
 }
 \keyword{misc}

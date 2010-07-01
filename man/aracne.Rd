@@ -33,6 +33,10 @@
  Stolovitzky, Riccardo Dalla Favera, and Andrea Califano. Aracne : An 
  algorithm for the reconstruction of gene regulatory networks in a mammalian
  cellular context. BMC Bioinformatics, 2006.
+ 
+ Patrick E. Meyer, Frederic Lafitte and Gianluca Bontempi. 
+ minet: A R/Bioconductor Package for Inferring Large Transcriptional Networks Using Mutual Information. 
+ BMC Bioinformatics, Vol 9, 2008.
 }
 \seealso{\code{\link{build.mim}},   \code{\link{clr}},    \code{\link{mrnet}}, \code{\link{mrnetb}}}
 \examples{

@@ -6,6 +6,8 @@
 \alias{fscores}
 \alias{show.pr}
 \alias{show.roc}
+\alias{auc.pr}
+\alias{auc.roc}
 \title{Visualize Results}
 
 \description{
@@ -18,6 +20,8 @@
   fscores(table, beta=1)
   show.pr(table,device=-1,...)
   show.roc(table,device=-1,...)
+  auc.roc(table)
+  auc.pr(table)
 }
 
 \arguments{
@@ -32,6 +36,8 @@
 }
 \value{
   The function \code{show.roc} (\code{show.pr}) plots the ROC-curve (PR-curve) and returns the device associated with the plotting window.
+  
+  The function \code{auc.roc} (\code{auc.pr}) computes the area under the ROC-curve (PR-curve) using the trapezoidal approximation.
   
   The function \code{pr} returns a (\code{steps} x 2) data.frame where steps is the number of thresholds used 
   in the validation process. The first column contains precisions and the second recalls - see details.

@@ -1,7 +1,7 @@
 \name{mrnetb}
 \alias{mrnetb}
 
-\title{Maximum Relevance Minimum Redundancy}
+\title{Maximum Relevance Minimum Redundancy Backward}
 \usage{mrnetb(mim)}
 \arguments{
   \item{mim}{ A square matrix whose i,j th element is the mutual information 
@@ -15,22 +15,24 @@
 
 \description{
   \code{mrnetb} takes the mutual information matrix as input in order to infer the network using 
-	the maximum relevance/minimum redundancy feature selection method - see details.
-	This method is a variant of mrnet (not yet available).
+	the maximum relevance/minimum redundancy criterion combined with a backward elimination and a sequential replacement - see references.
+	This method is a variant of mrnet.
 }
 \details{
-      to complete.
+      
 }
 \author{
-  Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
+  Patrick E. Meyer
 }
 \references{
-  to complete.
-
- Patrick E. Meyer, Kevin Kontos, Frederic Lafitte, and Gianluca Bontempi. 
+ Patrick E. Meyer, Daniel Marbach, Sushmita Roy and Manolis Kellis. 
+ Information-Theoretic Inference of Gene Networks Using Backward Elimination 
+ The 2010 International Conference on Bioinformatics and Computational Biology. 
+ 
+  
+ Patrick E. Meyer, Kevin Kontos, Frederic Lafitte and Gianluca Bontempi. 
  Information-theoretic inference of large transcriptional regulatory
- networks. EURASIP Journal on Bioinformatics and Systems Biology,
- 2007. 
+ networks. EURASIP Journal on Bioinformatics and Systems Biology, 2007.
 }
 \seealso{\code{\link{build.mim}},   \code{\link{clr}},  \code{\link{mrnet}}, \code{\link{aracne}}}
 \examples{

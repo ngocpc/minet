@@ -39,6 +39,12 @@ minet_2.2.0
 minet_2.2.1
 	- eps parameter correction in Aracne thanks to Lin Song (Horvath's lab, UCLA)
 	- NA values correction for correlation based MI
+minet_3.0
+	- license update
+	- no vignette and no demo anymore
+	- MRNETB added
+	- validation curves added
+	- AUC added
 	
 
           
