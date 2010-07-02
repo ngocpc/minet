@@ -1,6 +1,6 @@
 Package: minet
 Title: Mutual Information NETworks
-Version: 3.0.0
+Version: 3.1.0
 Date: 2010-07
 Author: Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 Description: This package implements various algorithms for inferring mutual information networks from data.
