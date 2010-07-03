@@ -80,14 +80,16 @@ SEXP mrnetb( SEXP Rmim, SEXP Rsize )
 	  	 			worst=i;
 	   	 }
 	   	 
-	   	 
+		 
 	   	 //sequential replacement
 	   	 for( unsigned int i=0; i< n; ++i ) 
 	     	if(rel[i]==eliminated) {
 	  	 		if( (mim[i*n+j]-fact*red[i]/k) > (mim[best*n+j]-fact*red[best]/k) )
 	  	 			best=i;
 	  	 		}
-	   	 while( (mim[best*n+j]-fact*red[best]/k) > (rel[worst]-fact*red[worst]/k) ) {
+				
+		 bool ok = true;
+	   	 while(ok){// (mim[best*n+j]-fact*red[best]/k) > (mim[worst*n+j]-fact*red[worst]/k) ) {
 	   		
 	   		//swap
 	   		rel[best] = mim[best*n+j];
@@ -99,15 +101,20 @@ SEXP mrnetb( SEXP Rmim, SEXP Rsize )
 	   		
 	   		//select worst
 	   		worst = temp;
+			ok = false;
 	     	for( unsigned int i=0; i< n; ++i ) 
 	     		if(rel[i] != eliminated) {
-	  	 			if( (rel[i]-fact*red[i]/k) < (rel[worst]-fact*red[worst]/k) )
+	  	 			if( (rel[i]-fact*red[i]/k) < (rel[worst]-fact*red[worst]/k) ) {
 	  	 				worst=i;
+						ok = true;
+					}
 	  	 		}
 	  	 		else
-	  	 			if( (mim[i*n+j]-fact*red[i]/k) > (mim[best*n+j]-fact*red[best]/k) )
+	  	 			if( (mim[i*n+j]-fact*red[i]/k) > (mim[best*n+j]-fact*red[best]/k) ) {
 	  	 				best=i;
-	  	 			
+						ok = true;
+					}
+				    	  	 			
 	   	 }
 	   	 
 	   	 //set scores
@@ -126,7 +133,7 @@ SEXP mrnet( SEXP Rmim, SEXP Rsize )
 {     
       const double *mim;
       const int* size;
-      double *rel, *red, *res, score=1,tmp;
+      double *rel, *red, *res, score=1;
 	  unsigned int n, jmax=0;
       SEXP Rres,Rred,Rrel;
       PROTECT(Rmim = AS_NUMERIC(Rmim));

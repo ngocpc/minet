@@ -13,7 +13,7 @@ and at http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode>
 SEXP validate( SEXP Rinet,SEXP Rtnet,SEXP Rn )
 {
       enum x {THR,TP,FP,FN,TN};
-      double *inet, *tnet, *thresh;
+      double *inet, *tnet;
       double *res;
       int *n, k;
       SEXP Rres;     
