@@ -45,6 +45,7 @@ mrnetb <- function( mim)
 	  rownames(res) <- var.id
 	  colnames(res) <- var.id
 	  res<-pmax(res,t(res))
+	  res[res<0]<-0
 	  res
 }
 

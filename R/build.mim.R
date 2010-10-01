@@ -35,5 +35,6 @@ build.mim <- function( dataset, estimator = "spearman", disc = "none", nbins = s
 		   mim <-mutinformation(dataset,method=estimator)
 		   diag(mim) <- 0
 	}
+	mim[mim<0]<-0
 	mim
 }
