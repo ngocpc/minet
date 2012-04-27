@@ -8,4 +8,4 @@ Maintainer: Patrick E. Meyer <software@meyerp.com>
 License: file LICENSE
 Depends: infotheo
 URL: http://minet.meyerp.com
-biocViews: Microarray, GraphsAndNetworks
+biocViews: Microarray, GraphsAndNetworks, NetworkAnalysis, NetworkInference
