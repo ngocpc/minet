@@ -3,10 +3,11 @@
 \alias{clr}
 
 \title{Context Likelihood or Relatedness Network}
-\usage{clr( mim )}
+\usage{clr( mim, skipDiagonal=1 )}
 \arguments{
   \item{mim}{A square matrix whose i,j th element is the mutual information  
 			between variables \eqn{Xi}{X_i} and \eqn{Xj}{X_j} - see \code{\link{build.mim}}.}
+  \item{skipDiagonal}{Skips the diagonal in the calculation of the mean and sd, default=1.}
 }
 \value{
   \code{clr} returns a matrix which is the weighted adjacency matrix of the network.
@@ -35,6 +36,10 @@
       Timothy S. Gardner. Large-scale mapping and validation of escherichia coli
       transcriptional regulation from a compendium of expression profiles. PLoS
       Biology, 2007.    
+}
+
+\author{
+  Implementation: P. E. Meyer and J.C.J. van Dam
 }
 
 \seealso{\code{\link{build.mim}},   \code{\link{aracne}},   \code{\link{mrnet}}, \code{\link{mrnetb}} }

@@ -45,6 +45,11 @@ minet_3.0
 	- MRNETB added
 	- validation curves added
 	- AUC added
+minet_3.18
+	Some bug fixes by J.c.j. van Dam in CLR:
+	-Calculation of the sd now divide by N-1 instead of N
+	-Squaring of z-values has been fixed
+	-Added option, skip diagonal for the mean and sd calculation 
 	
 
           

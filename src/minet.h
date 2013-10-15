@@ -23,7 +23,7 @@ using namespace std;
 extern "C" 
 {
 SEXP aracne(SEXP mim, SEXP nbvar, SEXP e);
-SEXP clr(SEXP mim, SEXP nbvar);
+SEXP clr(SEXP mim, SEXP nbvar,SEXP skipDiagonal);
 SEXP mrnet( SEXP mim, SEXP nbvar);
 SEXP mrnetb( SEXP mim, SEXP nbvar);
 SEXP validate( SEXP inet,SEXP tnet,SEXP n);

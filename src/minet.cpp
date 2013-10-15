@@ -14,7 +14,7 @@ R_CallMethodDef callMethods[] = {
       {"mrnet", (void*(*)()) &mrnet,  2},
 	  {"mrnetb", (void*(*)()) &mrnet,  2},
       {"aracne",(void*(*)()) &aracne, 3},
-      {"clr", (void*(*)()) &clr, 2},
+      {"clr", (void*(*)()) &clr, 3},
       {"validate",(void*(*)())&validate, 6},
       { NULL, NULL, 0}
 };

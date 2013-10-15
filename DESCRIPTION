@@ -1,11 +1,11 @@
 Package: minet
 Title: Mutual Information NETworks
-Version: 3.17.0
-Date: 2010-09
+Version: 3.18.0
+Date: 2013-10
 Author: Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 Description: This package implements various algorithms for inferring mutual information networks from data.
 Maintainer: Patrick E. Meyer <software@meyerp.com>
 License: CC BY-NC-SA 3.0
-Depends: infotheo
 URL: http://minet.meyerp.com
+depends: infotheo
 biocViews: Microarray, GraphsAndNetworks, NetworkAnalysis, NetworkInference

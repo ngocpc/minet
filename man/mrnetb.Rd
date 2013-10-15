@@ -18,12 +18,9 @@
 	the maximum relevance/minimum redundancy criterion combined with a backward elimination and a sequential replacement - see references.
 	This method is a variant of mrnet.
 }
-\details{
-      
+\details{   
 }
-\author{
-  Patrick E. Meyer
-}
+
 \references{
  Patrick E. Meyer, Daniel Marbach, Sushmita Roy and Manolis Kellis. 
  Information-Theoretic Inference of Gene Networks Using Backward Elimination. 

@@ -5,8 +5,7 @@
 \usage{build.mim(dataset, estimator = "spearman", disc = "none", nbins = sqrt(NROW(dataset)))}
 \arguments{
   \item{dataset}{data.frame containing gene expression data or any dataset where columns contain variables/features and rows contain outcomes/samples.}
-  \item{estimator}{The name of the entropy estimator to be used. The package implements four estimators for discrete data: 
-			    "mi.empirical", "mi.mm", "mi.shrink", "mi.sg" and three estimators based on correlation (can be used with continuous data): "pearson","spearman","kendall"(default:"spearman") - see details.
+  \item{estimator}{The name of the entropy estimator to be used. The package can use the  four mutual information estimators implemented in the package "infotheo": "mi.empirical", "mi.mm", "mi.shrink", "mi.sg" and three estimators based on correlation: "pearson","spearman","kendall"(default:"spearman") - see details.
 			    }
   \item{disc}{ The name of the discretization method to be used with one of the discrete estimators: "none", "equalfreq", "equalwidth" or "globalequalwidth" (default : "none") - see infotheo package.}
   \item{nbins}{ Integer specifying the number of bins to be used for the discretization if disc is different from "none". By default the number of bins is set to 
