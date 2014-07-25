@@ -9,7 +9,7 @@ and at http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode>
 */
 
 #include <iostream>
-using namespace std;
+//using namespace std;
 #include <algorithm>
 #include <ctime>
 #include <cmath>

@@ -51,5 +51,11 @@ minet_3.18
 	-Squaring of z-values has been fixed
 	-Added option, skip diagonal for the mean and sd calculation 
 	
+minet_3.23
+      -c++ validate bug correction
+      -using namespace std
+      -dup = false 
+      -now imports infotheo
+	
 
           

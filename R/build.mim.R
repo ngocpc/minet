@@ -11,7 +11,7 @@
 build.mim <- function( dataset, estimator = "spearman", disc = "none", nbins = sqrt(NROW(dataset)))
 {
 	if( disc == "equalfreq" || disc == "equalwidth" || disc == "globalequalwidth")
-				dataset<-discretize(dataset, disc, nbins)
+				dataset<-infotheo::discretize(dataset, disc, nbins)
 	if( estimator=="pearson" || estimator=="spearman" || estimator=="kendall") {
 		  mim<-cor(dataset,method=estimator,use="complete.obs")^2
 		  diag(mim)<-0
@@ -32,7 +32,7 @@ build.mim <- function( dataset, estimator = "spearman", disc = "none", nbins = s
           stop("unknown estimator")
 		  
 	if( estimator=="mm" || estimator=="emp" || estimator=="sg" || estimator=="shrink") {
-		   mim <-mutinformation(dataset,method=estimator)
+		   mim <-infotheo::mutinformation(dataset,method=estimator)
 		   diag(mim) <- 0
 	}
 	mim[mim<0]<-0
