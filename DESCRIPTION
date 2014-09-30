@@ -6,7 +6,7 @@ Author: Patrick E. Meyer, Frederic Lafitte, Gianluca Bontempi
 Description: This package implements various algorithms for inferring
         mutual information networks from data.
 Maintainer: Patrick E. Meyer <software@meyerp.com>
-License: CC BY-NC-SA 3.0
+License: file LICENSE
 URL: http://minet.meyerp.com
 Imports: infotheo
 biocViews: Microarray, GraphAndNetwork, Network, NetworkInference
